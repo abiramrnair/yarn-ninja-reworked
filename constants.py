@@ -1,0 +1,15 @@
+# Pygame
+GAME_TICK = 60
+GAME_NAME = "Yarn Ninja"
+SCREEN_DIMENSIONS = (600, 600)
+
+# Colors
+COLOR_WHITE = (255, 255, 255)
+COLOR_RED = (255, 0, 0)
+COLOR_BLACK = (0, 0, 0)
+COLOR_BLUE = (0, 0, 255)
+
+# Environment
+GRID_START = (50, 50)
+CHAR_WALL = "-"
+CHAR_PLAYER = "P"
