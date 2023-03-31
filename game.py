@@ -13,7 +13,9 @@ pygame.display.set_caption(GAME_NAME)
 def main():
     running = True
     currLevel = LEVEL_ONE
+    playerAnimationSprites = pygame.sprite.Group()
     player = Player(SURFACE, COLOR_RED)
+    playerAnimationSprites.add(player)
     parseGrid(currLevel, player)
     
     while running:
@@ -22,10 +24,12 @@ def main():
                 running = False
     
         SURFACE.fill(COLOR_WHITE)
-        player.drawPlayer()
+        # player.drawPlayerHitbox()
         player.handlePlayerKeys()
-        drawWalls()
-        
+        drawWalls(player)
+        player.collided = False
+        playerAnimationSprites.draw(SURFACE)
+        playerAnimationSprites.update()
         pygame.display.flip()
         clock.tick(GAME_TICK)
     
@@ -43,12 +47,31 @@ def parseGrid(level, player):
                 wall = Wall(coord_x, coord_y)
                 walls.append(wall)
             if char == CHAR_PLAYER:
-                if not hasattr(player, 'rect'):
-                    player.makeRect(coord_x, coord_y)
+                if player.unset:
+                    player.rect.x = coord_x
+                    player.rect.y = coord_y
+                    player.unset = False
 
-def drawWalls():
+def drawWalls(player):
     for wall in walls:
-        pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
+        if player.collided == "up":
+            wall.rect.y -= RUMBLE_DIST
+            pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
+            wall.rect.y += RUMBLE_DIST
+        elif player.collided == "down":
+            wall.rect.y += RUMBLE_DIST
+            pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
+            wall.rect.y -= RUMBLE_DIST
+        elif player.collided == "right":
+            wall.rect.x += RUMBLE_DIST
+            pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
+            wall.rect.x -= RUMBLE_DIST
+        elif player.collided == "left":
+            wall.rect.x -= RUMBLE_DIST
+            pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
+            wall.rect.x += RUMBLE_DIST
+        else:
+            pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
 
 # Start game
 main()
