@@ -11,9 +11,14 @@ COLOR_BLUE = (0, 0, 255)
 
 # Environment
 GRID_START = (50, 50)
+BLOCK_LENGTH = 50
 CHAR_WALL = "-"
 CHAR_PLAYER = "P"
 RUMBLE_DIST = 6
+LEFT = "left"
+RIGHT = "right"
+UP = "up"
+DOWN = "down"
 
 # Player
 PLAYER_MOVESPEED = 8

@@ -40,8 +40,8 @@ def parseGrid(level, player):
     for i in range(len(level)):
         for j in range(len(level[0])):
             char = level[j][i]
-            coord_x = GRID_START[0] + (50 * i)
-            coord_y = GRID_START[0] + (50 * j)
+            coord_x = GRID_START[0] + (BLOCK_LENGTH * i)
+            coord_y = GRID_START[0] + (BLOCK_LENGTH * j)
             
             if char == CHAR_WALL:
                 wall = Wall(coord_x, coord_y)
@@ -54,19 +54,19 @@ def parseGrid(level, player):
 
 def drawWalls(player):
     for wall in walls:
-        if player.collided == "up":
+        if player.collided == UP:
             wall.rect.y -= RUMBLE_DIST
             pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
             wall.rect.y += RUMBLE_DIST
-        elif player.collided == "down":
+        elif player.collided == DOWN:
             wall.rect.y += RUMBLE_DIST
             pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
             wall.rect.y -= RUMBLE_DIST
-        elif player.collided == "right":
+        elif player.collided == RIGHT:
             wall.rect.x += RUMBLE_DIST
             pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
             wall.rect.x -= RUMBLE_DIST
-        elif player.collided == "left":
+        elif player.collided == LEFT:
             wall.rect.x -= RUMBLE_DIST
             pygame.draw.rect(SURFACE, COLOR_BLACK, wall.rect)
             wall.rect.x += RUMBLE_DIST

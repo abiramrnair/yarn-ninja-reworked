@@ -67,10 +67,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
     def update(self):
         self.currentSprite += PLAYER_ANIM_INC
-        
         if self.currentSprite >= len(player_stances[self.current_stance]):
             self.currentSprite = 0
-        
         self.image = player_stances[self.current_stance][int(self.currentSprite)]
     def move(self, dx, dy):
         if dx != 0:
@@ -80,43 +78,41 @@ class Player(pygame.sprite.Sprite):
     def moveSingleAxis(self, dx, dy):
         self.rect.x += dx 
         self.rect.y += dy
-        
         for wall in walls:
             if self.rect.colliderect(wall.rect):
                 self.isMoving = False
                 if dx > 0: 
                     self.rect.right = wall.rect.left
                     self.current_stance = 0
-                    self.collided = "right"
+                    self.collided = RIGHT
                 if dx < 0: 
                     self.rect.left = wall.rect.right
                     self.current_stance = 2
-                    self.collided = "left"
+                    self.collided = LEFT
                 if dy < 0:
                     self.rect.top = wall.rect.bottom
                     self.current_stance = 4
-                    self.collided = "up"
+                    self.collided = UP
                 if dy > 0: 
                     self.rect.bottom = wall.rect.top
                     self.current_stance = 6
-                    self.collided = "down"
+                    self.collided = DOWN
     def handlePlayerKeys(self):
         key_pressed = pygame.key.get_pressed()
-        
-        if (key_pressed[pygame.K_RIGHT] or self.isMoving == "right") and self.isMoving != "left" and self.isMoving != "up" and self.isMoving != "down":
-            self.isMoving = "right"
+        if (key_pressed[pygame.K_RIGHT] or self.isMoving == RIGHT) and self.isMoving != LEFT and self.isMoving != UP and self.isMoving != DOWN:
+            self.isMoving = RIGHT
             self.current_stance = 1
             self.move(PLAYER_MOVESPEED, 0)
-        if (key_pressed[pygame.K_LEFT] or self.isMoving == "left") and self.isMoving != "right" and self.isMoving != "up" and self.isMoving != "down":
-            self.isMoving = "left"
+        if (key_pressed[pygame.K_LEFT] or self.isMoving == LEFT) and self.isMoving != RIGHT and self.isMoving != UP and self.isMoving != DOWN:
+            self.isMoving = LEFT
             self.current_stance = 3
             self.move(-PLAYER_MOVESPEED, 0)
-        if (key_pressed[pygame.K_UP] or self.isMoving == "up") and self.isMoving != "right" and self.isMoving != "left" and self.isMoving != "down":
-            self.isMoving = "up"
+        if (key_pressed[pygame.K_UP] or self.isMoving == UP) and self.isMoving != RIGHT and self.isMoving != LEFT and self.isMoving != DOWN:
+            self.isMoving = UP
             self.current_stance = 5
             self.move(0, -PLAYER_MOVESPEED)
-        if (key_pressed[pygame.K_DOWN] or self.isMoving == "down") and self.isMoving != "right" and self.isMoving != "up" and self.isMoving != "left":
-            self.isMoving = "down"
+        if (key_pressed[pygame.K_DOWN] or self.isMoving == DOWN) and self.isMoving != RIGHT and self.isMoving != UP and self.isMoving != LEFT:
+            self.isMoving = DOWN
             self.current_stance = 7
             self.move(0, PLAYER_MOVESPEED)
     def drawPlayerHitbox(self): # For testing
