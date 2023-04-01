@@ -73,7 +73,7 @@ def main():
 
         if player.available_moves <= 0:
             level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render("Game Over", True, COLOR_BLACK)
-            SURFACE.blit(level_label, (SCREEN_WIDTH/2 -115, 20))
+            SURFACE.blit(level_label, (SCREEN_WIDTH/2 - 115, 20))
             resetLevel = True
             start_time = pygame.time.get_ticks()
 

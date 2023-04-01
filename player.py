@@ -72,6 +72,8 @@ class Player(pygame.sprite.Sprite):
         self.interactableCoords = None
         self.available_moves = None
         self.win = None
+        self.move_check = None
+
     def update(self):
         self.currentSprite += PLAYER_ANIM_INC
         if self.currentSprite >= len(player_stances[self.current_stance]):
@@ -89,7 +91,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += dy
         for wall in walls:
             if self.rect.colliderect(wall.rect):
-                self.available_moves -= 1
+                # self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
                 self.isMoving = False
@@ -105,15 +107,27 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = wall.rect.bottom
                     self.current_stance = 4
                     self.collided = UP
+
                 if dy > 0: 
                     self.rect.bottom = wall.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
+                # Determine if the user is not pressing arrow keys, enable move_check
+                keys = pygame.key.get_pressed()
+                if not (keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP] or keys[pygame.K_DOWN]):
+                    self.move_check = True
+            else:
+                self.move_check = False
+
+            if self.move_check:
+                self.available_moves -= 1
+
         for sprite in self.interactableCollection:
             if sprite.is_solid and self.rect.colliderect(sprite.rect):
-                self.available_moves -= 1
+                # self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
+                self.collision = True
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
                 self.isMoving = False
@@ -133,9 +147,15 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = sprite.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
+
+
+
+
+
             elif self.rect.colliderect(sprite.rect):
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
-                self.performPlayerAction(sprite_x, sprite_y) 
+                self.performPlayerAction(sprite_x, sprite_y)
+
     def handlePlayerKeys(self):
         key_pressed = pygame.key.get_pressed()
         if (key_pressed[pygame.K_RIGHT] or self.isMoving == RIGHT) and self.isMoving != LEFT and self.isMoving != UP and self.isMoving != DOWN:
@@ -154,6 +174,7 @@ class Player(pygame.sprite.Sprite):
             self.isMoving = DOWN
             self.current_stance = 7
             self.move(0, PLAYER_MOVESPEED)
+
     def drawPlayerHitbox(self): # For testing
         pygame.draw.rect(self.surface, self.color, self.rect)
     def playCollisionSound(self):
