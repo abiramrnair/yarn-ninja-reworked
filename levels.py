@@ -18,6 +18,8 @@ LEVEL_ONE = {
         }
 
 LEVEL_TWO = {
+        'name': "LEVEL 2",
+        'available_moves': 8,
              'surface_grid': [
              ["-","-","-","-","-","-","-","-","-","-"],
              ["-","GP","*","*","G","*","*","*","*","-"],
@@ -36,4 +38,4 @@ LEVEL_TWO = {
                 (1, 1): {'impact': (3, 5), 'action': 'teleport'},
                 (3, 6): {'impact': (2, 1), 'action': 'teleport'}
               }
-            }  
+            }

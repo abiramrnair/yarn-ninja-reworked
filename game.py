@@ -4,6 +4,7 @@ from wall import *
 from interactable import *
 from player import *
 import pygame
+import time
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -12,10 +13,13 @@ BACKGROUND_HEIGHT, BACKGROUND_WIDTH = BACKGROUND_DIMENSIONS
 SURFACE = pygame.display.set_mode([SCREEN_HEIGHT, SCREEN_WIDTH])
 pygame.display.set_caption(GAME_NAME)
 
+
+
 def main():
     running = True
     gameBackground = pygame.transform.scale(pygame.image.load("./Assets/Images/game_background.jpg"), (BACKGROUND_HEIGHT, BACKGROUND_WIDTH))
     currLevel = LEVEL_ONE
+    resetLevel = False
 
     # Sprite collection
     playerAnimationSprites = pygame.sprite.Group()
@@ -32,6 +36,9 @@ def main():
     # font
     pygame.font.init()
     font =  pygame.font.SysFont('Arial', 25, bold=True)
+
+    # timeout
+    timeout_duration = 3000
     # Grid setup
     parseGrid(currLevel, player, interactableCollectionSprites)
     for wall in walls:
@@ -46,6 +53,8 @@ def main():
                 running = False
                 # return "end"
 
+
+
         SURFACE.blit(gameBackground, (0, 0))
         # player.drawPlayerHitbox()
         player.handlePlayerKeys()
@@ -57,8 +66,20 @@ def main():
         playerAnimationSprites.draw(SURFACE)
         playerAnimationSprites.update()
 
-        SURFACE.blit(level_label, (10, 10))
-        SURFACE.blit(moves_label, (SCREEN_WIDTH-115, 10))
+        # check if the timeout duration has elapsed and reset the level
+        if resetLevel:
+            time.sleep(3)
+            main()
+
+        if player.available_moves <= 0:
+            level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render("Game Over", True, COLOR_BLACK)
+            SURFACE.blit(level_label, (SCREEN_WIDTH/2 -115, 20))
+            resetLevel = True
+            start_time = pygame.time.get_ticks()
+
+        else:
+            SURFACE.blit(level_label, (10, 10))
+            SURFACE.blit(moves_label, (SCREEN_WIDTH - 115, 10))
 
         pygame.display.flip()
         clock.tick(GAME_TICK)
