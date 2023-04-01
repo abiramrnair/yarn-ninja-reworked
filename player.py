@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 from constants import *
 from wall import *   
 
@@ -65,6 +65,9 @@ class Player(pygame.sprite.Sprite):
         self.currentSprite = 0
         self.image = player_stances[self.current_stance][self.currentSprite]
         self.rect = self.image.get_rect()
+        self.collision_sound = pygame.mixer.Sound('./Assets/Sounds/CollisionSound.mp3')
+        self.last_collided_time = pygame.time.get_ticks()
+        self.last_collision_sound_time = pygame.time.get_ticks()
     def update(self):
         self.currentSprite += PLAYER_ANIM_INC
         if self.currentSprite >= len(player_stances[self.current_stance]):
@@ -80,6 +83,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += dy
         for wall in walls:
             if self.rect.colliderect(wall.rect):
+                self.last_collided_time = pygame.time.get_ticks()
+                self.playCollisionSound()
                 self.isMoving = False
                 if dx > 0: 
                     self.rect.right = wall.rect.left
@@ -117,3 +122,7 @@ class Player(pygame.sprite.Sprite):
             self.move(0, PLAYER_MOVESPEED)
     def drawPlayerHitbox(self): # For testing
         pygame.draw.rect(self.surface, self.color, self.rect)
+    def playCollisionSound(self):
+        if self.last_collided_time - self.last_collision_sound_time > 500:
+            self.collision_sound.play()
+            self.last_collision_sound_time = pygame.time.get_ticks()
