@@ -19,18 +19,10 @@ text_rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-100)
 
 # Set Start button properties
 button_color = (50, 200, 70) # green
-button_text = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 14).render('Start', True, (255, 255, 255)) # white
+button_text = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 12).render('    Click to Start     ', True, (255, 255, 255)) # white
 button_text_rect = button_text.get_rect()
 button_rect = pygame.Rect(SCREEN_WIDTH/2-100, SCREEN_HEIGHT-200, 200, 50)
 button_text_rect.center = button_rect.center  # center the button text on the button
-
-# Quit button
-quit_button_text = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 14).render('  Exit', True, (255, 255, 255)) # white
-quit_button_text_rect = button_text.get_rect()
-quit_button_rect = pygame.Rect(SCREEN_WIDTH/2-100, SCREEN_HEIGHT-100, 200, 50)
-quit_button_text_rect.center = quit_button_rect.center  # center the button text on the button
-
-
 
 
 # Update display and wait for user input
@@ -41,19 +33,20 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = pygame.mouse.get_pos()
+            print(mouse_pos)
             if button_rect.collidepoint(mouse_pos):
                 # Route to another scene
                 print('Routing to Level 1.')
                 import game
-                x = game.main()
-                if x == "end":
-                    pygame.quit()
-                    quit()
-            if quit_button_rect.collidepoint(mouse_pos):
-                    pygame.quit()
-                    quit()
+                game.main()
+                # if x == "end":
+                #     pygame.quit()
+                #     quit()
+            # if quit_button_rect.collidepoint(mouse_pos):
+            #         pygame.quit()
+            #         quit()
 
     # Blit background image, text, and button onto display surface
     screen.blit(background_image, (0, 0))
@@ -61,8 +54,6 @@ while True:
     pygame.draw.rect(screen, button_color, button_rect)
     screen.blit(button_text, button_text_rect)
 
-    pygame.draw.rect(screen, button_color, quit_button_rect)
-    screen.blit(quit_button_text, quit_button_text_rect)
 
 
     # screen.blit(text_surface, (60, screen_height-20))

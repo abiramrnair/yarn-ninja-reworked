@@ -24,10 +24,14 @@ def main():
 
     # Player setup
     player = Player(SURFACE, COLOR_RED)
+    player.available_moves = currLevel['available_moves']
     player.interactableCollection = interactableCollectionSprites
     player.interactableCoords = currLevel['interactive_coords']
     playerAnimationSprites.add(player)
 
+    # font
+    pygame.font.init()
+    font =  pygame.font.SysFont('Arial', 25, bold=True)
     # Grid setup
     parseGrid(currLevel, player, interactableCollectionSprites)
     for wall in walls:
@@ -35,15 +39,16 @@ def main():
 
     # Game loop
     while running:
+        level_label = font.render(str(currLevel["name"]), True, COLOR_BLACK)
+        moves_label = font.render('Moves: ' + str(player.available_moves), True, COLOR_BLACK)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                # running = False
-                return "end"
+                running = False
+                # return "end"
 
         SURFACE.blit(gameBackground, (0, 0))
         # player.drawPlayerHitbox()
         player.handlePlayerKeys()
-
         drawWalls(player)
         interactableCollectionSprites.draw(SURFACE)
         interactableCollectionSprites.update()
@@ -51,6 +56,9 @@ def main():
 
         playerAnimationSprites.draw(SURFACE)
         playerAnimationSprites.update()
+
+        SURFACE.blit(level_label, (10, 10))
+        SURFACE.blit(moves_label, (SCREEN_WIDTH-115, 10))
 
         pygame.display.flip()
         clock.tick(GAME_TICK)

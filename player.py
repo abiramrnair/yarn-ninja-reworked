@@ -70,6 +70,8 @@ class Player(pygame.sprite.Sprite):
         self.last_collision_sound_time = pygame.time.get_ticks()
         self.interactableCollection = None
         self.interactableCoords = None
+        self.available_moves = None
+        self.win = None
     def update(self):
         self.currentSprite += PLAYER_ANIM_INC
         if self.currentSprite >= len(player_stances[self.current_stance]):
@@ -78,13 +80,16 @@ class Player(pygame.sprite.Sprite):
     def move(self, dx, dy):
         if dx != 0:
             self.moveSingleAxis(dx, 0)
+
         if dy != 0:
             self.moveSingleAxis(0, dy)
+
     def moveSingleAxis(self, dx, dy):
         self.rect.x += dx 
         self.rect.y += dy
         for wall in walls:
             if self.rect.colliderect(wall.rect):
+                self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
                 self.isMoving = False
@@ -106,6 +111,7 @@ class Player(pygame.sprite.Sprite):
                     self.collided = DOWN
         for sprite in self.interactableCollection:
             if sprite.is_solid and self.rect.colliderect(sprite.rect):
+                self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
