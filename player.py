@@ -68,6 +68,8 @@ class Player(pygame.sprite.Sprite):
         self.collision_sound = pygame.mixer.Sound('./Assets/Sounds/CollisionSound.mp3')
         self.last_collided_time = pygame.time.get_ticks()
         self.last_collision_sound_time = pygame.time.get_ticks()
+        self.interactableCollection = None
+        self.interactableCoords = None
     def update(self):
         self.currentSprite += PLAYER_ANIM_INC
         if self.currentSprite >= len(player_stances[self.current_stance]):
@@ -102,6 +104,32 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = wall.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
+        for sprite in self.interactableCollection:
+            if sprite.is_solid and self.rect.colliderect(sprite.rect):
+                self.last_collided_time = pygame.time.get_ticks()
+                self.playCollisionSound()
+                sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
+                self.performPlayerAction(sprite_x, sprite_y)
+                self.isMoving = False
+                if dx > 0: 
+                    self.rect.right = sprite.rect.left
+                    self.current_stance = 0
+                    self.collided = RIGHT
+                if dx < 0: 
+                    self.rect.left = sprite.rect.right
+                    self.current_stance = 2
+                    self.collided = LEFT
+                if dy < 0:
+                    self.rect.top = sprite.rect.bottom
+                    self.current_stance = 4
+                    self.collided = UP
+                if dy > 0: 
+                    self.rect.bottom = sprite.rect.top
+                    self.current_stance = 6
+                    self.collided = DOWN
+            elif self.rect.colliderect(sprite.rect):
+                sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
+                self.performPlayerAction(sprite_x, sprite_y) 
     def handlePlayerKeys(self):
         key_pressed = pygame.key.get_pressed()
         if (key_pressed[pygame.K_RIGHT] or self.isMoving == RIGHT) and self.isMoving != LEFT and self.isMoving != UP and self.isMoving != DOWN:
@@ -123,6 +151,23 @@ class Player(pygame.sprite.Sprite):
     def drawPlayerHitbox(self): # For testing
         pygame.draw.rect(self.surface, self.color, self.rect)
     def playCollisionSound(self):
-        if self.last_collided_time - self.last_collision_sound_time > 500:
+        if self.last_collided_time - self.last_collision_sound_time > 300:
             self.collision_sound.play()
             self.last_collision_sound_time = pygame.time.get_ticks()
+    def performPlayerAction(self, sprite_x, sprite_y):
+        if (sprite_x, sprite_y) in self.interactableCoords:
+            obj = self.interactableCoords[(sprite_x, sprite_y)]
+            impact, action = obj['impact'], obj['action']
+
+            if action == PLAYER_DESTROY:
+                for sprite in self.interactableCollection:
+                    coord_x, coord_y = getOriginalCoords(GRID_START,(sprite.rect.x, sprite.rect.y))
+                    if sprite.is_solid and coord_x == impact[0] and coord_y == impact[1]:
+                        sprite.kill()
+            elif action == PLAYER_TELEPORT:
+                for sprite in self.interactableCollection:
+                    if sprite.is_portal:
+                        player_x, player_y = getOriginalCoords(GRID_START, (self.rect.x, self.rect.y))
+                        coord_x, coord_y = getOriginalCoords(GRID_START,(sprite.rect.x, sprite.rect.y))
+                        if player_x == coord_x and player_y == coord_y:
+                            self.rect.x, self.rect.y = getTranslatedCoords(GRID_START, impact)

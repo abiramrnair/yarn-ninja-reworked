@@ -22,12 +22,18 @@ def main():
     wallCollectionSprites = pygame.sprite.Group()
     interactableCollectionSprites = pygame.sprite.Group()
     
+    # Player setup
     player = Player(SURFACE, COLOR_RED)
+    player.interactableCollection = interactableCollectionSprites
+    player.interactableCoords = currLevel['interactive_coords']
     playerAnimationSprites.add(player)
+    
+    # Grid setup
     parseGrid(currLevel, player, interactableCollectionSprites)
     for wall in walls:
         wallCollectionSprites.add(wall)
     
+    # Game loop
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -39,6 +45,7 @@ def main():
         
         drawWalls(player)
         interactableCollectionSprites.draw(SURFACE)
+        interactableCollectionSprites.update()
         player.collided = False
         
         playerAnimationSprites.draw(SURFACE)
@@ -51,11 +58,16 @@ def main():
 
 # Helpers
 def parseGrid(level, player, interactableCollection):
-    for i in range(len(level)):
-        for j in range(len(level[0])):
-            char = level[j][i]
-            coord_x = GRID_START[0] + (BLOCK_LENGTH * i)
-            coord_y = GRID_START[0] + (BLOCK_LENGTH * j)
+    grid_layer_one = level['obstacle_grid']
+    grid_layer_two = level['surface_grid']
+    for obstacle in grid_layer_one:
+            type, coord = obstacle
+            coord_x, coord_y = getTranslatedCoords(GRID_START, coord)
+            interactableCollection.add(Interactable(coord_y, coord_x, type))
+    for i in range(len(grid_layer_two)):
+        for j in range(len(grid_layer_two[0])):
+            char = grid_layer_two[j][i]
+            coord_x, coord_y = getTranslatedCoords(GRID_START, (i, j))
             
             if char == CHAR_WALL:
                 wall = Wall(coord_x, coord_y)

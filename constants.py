@@ -27,3 +27,11 @@ PLAYER_MOVESPEED = 8
 PLAYER_ANIM_INC = 0.30
 PLAYER_HITBOX_X = 50
 PLAYER_HITBOX_Y = 50
+PLAYER_DESTROY = "destroy"
+PLAYER_TELEPORT = "teleport"
+
+# Coords functions
+def getTranslatedCoords(startingCoords, coord):
+    return startingCoords[0] + (BLOCK_LENGTH * coord[0]), startingCoords[0] + (BLOCK_LENGTH * coord[1])
+def getOriginalCoords(startingCoords, translatedCoords):
+    return (translatedCoords[0] - startingCoords[0]) // BLOCK_LENGTH, (translatedCoords[1] - startingCoords[0]) // BLOCK_LENGTH
