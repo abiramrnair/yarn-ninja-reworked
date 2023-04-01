@@ -6,7 +6,7 @@ SCREEN_HEIGHT, SCREEN_WIDTH = 700, 700
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load background image and scale it to fit the screen size
-background_image = pygame.image.load('../../../PycharmProjects/yarn-ninja-reworked/Assets/Images/game_background.jpg')
+background_image = pygame.image.load('./Assets/Images/game_background.jpg')
 background_image = pygame.transform.scale(background_image, (800, 800))
 
 # Set font and render text
@@ -51,7 +51,7 @@ while True:
                 if x == "end":
                     pygame.quit()
                     quit()
-            elif quit_button_rect.collidepoint(mouse_pos):
+            if quit_button_rect.collidepoint(mouse_pos):
                     pygame.quit()
                     quit()
 
