@@ -1,6 +1,6 @@
 import pygame
 pygame.init()
-
+from levels import *
 # Set screen size and create display surface
 SCREEN_HEIGHT, SCREEN_WIDTH = 700, 700
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -8,17 +8,16 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Load background image and scale it to fit the screen size
 background_image = pygame.image.load('./Assets/Images/menu.png')
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH+300, SCREEN_HEIGHT+200))
-
 # Set font and render text
 # font = pygame.font.SysFont('Arial', 20,bold=True)
 font = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 45)
 
-text = font.render("Yarn Ninja", True, (255,255,255)) # black
+text = font.render("Yarn Ninja", True, (224,102,255))
 text_rect = text.get_rect()
 text_rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-50)
 
 # Set Start button properties
-button_color = (104,34,139) # green
+button_color = (104,34,139) # purple
 button_text = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 12).render('    Click to Start     ', True, (255, 255, 255)) # white
 button_text_rect = button_text.get_rect()
 button_rect = pygame.Rect(SCREEN_WIDTH/2-100, SCREEN_HEIGHT-200, 200, 50)
@@ -40,7 +39,7 @@ while True:
                 # Route to another scene
                 print('Routing to Level 1.')
                 import game
-                game.main()
+                game.main(0)
                 # if x == "end":
                 #     pygame.quit()
                 #     quit()
@@ -53,6 +52,7 @@ while True:
     screen.blit(text, text_rect)
     pygame.draw.rect(screen, button_color, button_rect)
     screen.blit(button_text, button_text_rect)
+
 
 
 

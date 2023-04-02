@@ -114,7 +114,6 @@ class Player(pygame.sprite.Sprite):
                     self.current_stance = 6
                     self.collided = DOWN
 
-
                 # Determine if the user is not pressing arrow keys, enable move_check
                 keys = pygame.key.get_pressed()
                 if not (keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP] or keys[pygame.K_DOWN]):
@@ -151,10 +150,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = sprite.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
-
-
-
-
 
             elif self.rect.colliderect(sprite.rect):
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))

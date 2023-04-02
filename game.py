@@ -15,11 +15,13 @@ pygame.display.set_caption(GAME_NAME)
 
 
 
-def main():
+def main(level):
     running = True
     gameBackground = pygame.transform.scale(pygame.image.load("./Assets/Images/background.jpg"), (BACKGROUND_HEIGHT, BACKGROUND_WIDTH))
-    currLevel = LEVEL_ONE
+    levels = [LEVEL_ONE, LEVEL_TWO]
+    currLevel = levels[level]
     resetLevel = False
+    newLevel = False
 
     # Sprite collection
     playerAnimationSprites = pygame.sprite.Group()
@@ -40,6 +42,7 @@ def main():
     # timeout
     timeout_duration = 3000
     # Grid setup
+
     parseGrid(currLevel, player, interactableCollectionSprites)
     for wall in walls:
         wallCollectionSprites.add(wall)
@@ -59,6 +62,7 @@ def main():
         SURFACE.blit(gameBackground, (0, 0))
         # player.drawPlayerHitbox()
         player.handlePlayerKeys()
+
         drawWalls(player)
         interactableCollectionSprites.draw(SURFACE)
         interactableCollectionSprites.update()
@@ -70,9 +74,13 @@ def main():
         # check if the timeout duration has elapsed and reset the level
         if resetLevel:
             time.sleep(3)
-            main()
+            main(0)
+        if newLevel:
+            time.sleep(2)
+            main(1)
 
         if player.available_moves <= 0:
+            pygame.font.init()
             level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render("Game Over", True, COLOR_WHITE)
             SURFACE.blit(level_label, (SCREEN_WIDTH/2 - 115, 20))
             resetLevel = True
@@ -81,8 +89,11 @@ def main():
             SURFACE.blit(moves_label, (SCREEN_WIDTH-155, 10))
             SURFACE.blit(colon_label,(SCREEN_WIDTH-50, 4))
 
-        pygame.display.flip()
+
+
+        pygame.display.update()
         clock.tick(GAME_TICK)
+
 
     pygame.quit()
 

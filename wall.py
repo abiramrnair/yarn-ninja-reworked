@@ -12,3 +12,4 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x, self.rect.y = x, y
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
