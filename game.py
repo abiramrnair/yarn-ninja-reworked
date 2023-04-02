@@ -17,7 +17,7 @@ pygame.display.set_caption(GAME_NAME)
 
 def main():
     running = True
-    gameBackground = pygame.transform.scale(pygame.image.load("./Assets/Images/game_background.jpg"), (BACKGROUND_HEIGHT, BACKGROUND_WIDTH))
+    gameBackground = pygame.transform.scale(pygame.image.load("./Assets/Images/background.jpg"), (BACKGROUND_HEIGHT, BACKGROUND_WIDTH))
     currLevel = LEVEL_ONE
     resetLevel = False
 
@@ -35,7 +35,7 @@ def main():
 
     # font
     pygame.font.init()
-    font =  pygame.font.SysFont('Arial', 25, bold=True)
+    font =  pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 20)
 
     # timeout
     timeout_duration = 3000
@@ -46,8 +46,9 @@ def main():
 
     # Game loop
     while running:
-        level_label = font.render(str(currLevel["name"]), True, COLOR_BLACK)
-        moves_label = font.render('Moves: ' + str(player.available_moves), True, COLOR_BLACK)
+        level_label = font.render(str(currLevel["name"]), True, COLOR_WHITE)
+        moves_label = font.render('Moves  ' + str(player.available_moves), True, COLOR_WHITE)
+        colon_label = pygame.font.SysFont('Arial', 28,bold=True).render(' :',True, COLOR_WHITE)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -72,14 +73,13 @@ def main():
             main()
 
         if player.available_moves <= 0:
-            level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render("Game Over", True, COLOR_BLACK)
+            level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render("Game Over", True, COLOR_WHITE)
             SURFACE.blit(level_label, (SCREEN_WIDTH/2 - 115, 20))
             resetLevel = True
-            start_time = pygame.time.get_ticks()
-
         else:
             SURFACE.blit(level_label, (10, 10))
-            SURFACE.blit(moves_label, (SCREEN_WIDTH - 115, 10))
+            SURFACE.blit(moves_label, (SCREEN_WIDTH-155, 10))
+            SURFACE.blit(colon_label,(SCREEN_WIDTH-50, 4))
 
         pygame.display.flip()
         clock.tick(GAME_TICK)

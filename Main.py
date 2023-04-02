@@ -6,19 +6,19 @@ SCREEN_HEIGHT, SCREEN_WIDTH = 700, 700
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load background image and scale it to fit the screen size
-background_image = pygame.image.load('./Assets/Images/game_background.jpg')
-background_image = pygame.transform.scale(background_image, (800, 800))
+background_image = pygame.image.load('./Assets/Images/menu.png')
+background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH+300, SCREEN_HEIGHT+200))
 
 # Set font and render text
 # font = pygame.font.SysFont('Arial', 20,bold=True)
-font = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 40)
+font = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 45)
 
-text = font.render("Yarn Ninja", True, (0, 0, 0)) # black
+text = font.render("Yarn Ninja", True, (255,255,255)) # black
 text_rect = text.get_rect()
-text_rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-100)
+text_rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2-50)
 
 # Set Start button properties
-button_color = (50, 200, 70) # green
+button_color = (104,34,139) # green
 button_text = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 12).render('    Click to Start     ', True, (255, 255, 255)) # white
 button_text_rect = button_text.get_rect()
 button_rect = pygame.Rect(SCREEN_WIDTH/2-100, SCREEN_HEIGHT-200, 200, 50)

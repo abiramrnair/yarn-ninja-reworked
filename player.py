@@ -89,6 +89,7 @@ class Player(pygame.sprite.Sprite):
     def moveSingleAxis(self, dx, dy):
         self.rect.x += dx 
         self.rect.y += dy
+
         for wall in walls:
             if self.rect.colliderect(wall.rect):
                 # self.available_moves -= 1
@@ -112,10 +113,13 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = wall.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
+
+
                 # Determine if the user is not pressing arrow keys, enable move_check
                 keys = pygame.key.get_pressed()
                 if not (keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP] or keys[pygame.K_DOWN]):
                     self.move_check = True
+
             else:
                 self.move_check = False
 
@@ -127,7 +131,7 @@ class Player(pygame.sprite.Sprite):
                 # self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
-                self.collision = True
+                # self.collision = True
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
                 self.isMoving = False
