@@ -24,6 +24,7 @@ class Game:
         gameBackground = pygame.transform.scale(pygame.image.load("./Assets/Images/background.jpg"), (self.BACKGROUND_HEIGHT, self.BACKGROUND_WIDTH))
         currLevel = GAME_LEVELS[level]
         resetLevel = False
+        showLevelInfo = True
 
         # Player setup
         player = Player(self.SURFACE, COLOR_RED)
@@ -66,22 +67,26 @@ class Game:
 
             # check if the timeout duration has elapsed and reset the level
             if resetLevel:
-                time.sleep(3)
+                pygame.time.delay(4000)
                 self.main(0)
             if player.win:
-                time.sleep(2)
+                level_completed_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render(
+                   str(currLevel["name"]) + " Completed", True, COLOR_WHITE)
+                self.SURFACE.blit(level_completed_label, (self.SCREEN_WIDTH / 2 - 240, 30))
+                pygame.display.flip()
+                pygame.time.delay(4000)
                 self.cleanUpRender()
                 self.main(level + 1)
 
             if player.available_moves <= 0:
-                pygame.font.init()
-                level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render("Game Over", True, COLOR_WHITE)
-                self.SURFACE.blit(level_label, (self.SCREEN_WIDTH/2 - 115, 20))
+                level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 40).render("Game Over", True,
+                                                                                             COLOR_WHITE)
+                self.SURFACE.blit(level_label, (self.SCREEN_WIDTH / 2 - 170, 20))
                 resetLevel = True
             else:
                 self.SURFACE.blit(level_label, (10, 10))
                 self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 155, 10))
-                self.SURFACE.blit(colon_label,(self.SCREEN_WIDTH - 50, 4))
+                self.SURFACE.blit(colon_label, (self.SCREEN_WIDTH - 50, 4))
 
             pygame.display.update()
             self.clock.tick(GAME_TICK)
