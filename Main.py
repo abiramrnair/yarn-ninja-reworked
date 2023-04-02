@@ -38,7 +38,8 @@ while True:
             if button_rect.collidepoint(mouse_pos):
                 # Route to another scene
                 print('Routing to Level 1.')
-                import game
+                from game import Game
+                game = Game()
                 game.main(0)
                 # if x == "end":
                 #     pygame.quit()

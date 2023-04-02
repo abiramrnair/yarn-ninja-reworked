@@ -1,4 +1,4 @@
-import pygame, time
+import pygame
 from constants import *
 from wall import *   
 
@@ -73,7 +73,7 @@ class Player(pygame.sprite.Sprite):
         self.available_moves = None
         self.win = None
         self.move_check = None
-
+        self.walls = None
     def update(self):
         self.currentSprite += PLAYER_ANIM_INC
         if self.currentSprite >= len(player_stances[self.current_stance]):
@@ -90,7 +90,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += dx 
         self.rect.y += dy
 
-        for wall in walls:
+        for wall in self.walls:
             if self.rect.colliderect(wall.rect):
                 # self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
@@ -150,7 +150,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = sprite.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
-
             elif self.rect.colliderect(sprite.rect):
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
@@ -173,7 +172,6 @@ class Player(pygame.sprite.Sprite):
             self.isMoving = DOWN
             self.current_stance = 7
             self.move(0, PLAYER_MOVESPEED)
-
     def drawPlayerHitbox(self): # For testing
         pygame.draw.rect(self.surface, self.color, self.rect)
     def playCollisionSound(self):
@@ -184,7 +182,6 @@ class Player(pygame.sprite.Sprite):
         if (sprite_x, sprite_y) in self.interactableCoords:
             obj = self.interactableCoords[(sprite_x, sprite_y)]
             impact, action = obj['impact'], obj['action']
-
             if action == PLAYER_DESTROY:
                 for sprite in self.interactableCollection:
                     coord_x, coord_y = getOriginalCoords(GRID_START,(sprite.rect.x, sprite.rect.y))
@@ -197,3 +194,6 @@ class Player(pygame.sprite.Sprite):
                         coord_x, coord_y = getOriginalCoords(GRID_START,(sprite.rect.x, sprite.rect.y))
                         if player_x == coord_x and player_y == coord_y:
                             self.rect.x, self.rect.y = getTranslatedCoords(GRID_START, impact)
+            elif action == PLAYER_WIN:
+                self.win = True
+                # Can do animation here for level win, display message etc

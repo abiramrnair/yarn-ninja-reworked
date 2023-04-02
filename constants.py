@@ -29,6 +29,7 @@ PLAYER_HITBOX_X = 50
 PLAYER_HITBOX_Y = 50
 PLAYER_DESTROY = "destroy"
 PLAYER_TELEPORT = "teleport"
+PLAYER_WIN = "win"
 
 # Coords functions
 def getTranslatedCoords(startingCoords, coord):
