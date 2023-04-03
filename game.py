@@ -77,7 +77,12 @@ class Game:
                 pygame.display.flip()
                 pygame.time.delay(4000)
                 self.cleanUpRender()
-                self.main(level + 1)
+                if level + 1 < len(GAME_LEVELS):
+                    self.main(level + 1)
+                else:
+                    import Main
+                    Main.home()
+
 
             if player.available_moves <= 0:
                 level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 40).render("Game Over", True,
