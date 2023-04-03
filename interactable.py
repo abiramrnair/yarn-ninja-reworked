@@ -11,6 +11,7 @@ interactables = {
     'GP': pygame.transform.scale(pygame.image.load("Assets/Images/green_portal.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),
     'PP': pygame.transform.scale(pygame.image.load("Assets/Images/purple_portal.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),
     'RBRL': pygame.transform.scale(pygame.image.load("Assets/Images/red_button_rotleft.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),
+    'RBRR': pygame.transform.scale(pygame.image.load("Assets/Images/red_button_rotright.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),
     'PBRL': pygame.transform.scale(pygame.image.load("Assets/Images/purple_button_rotleft.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),
     'PI': pygame.transform.scale(pygame.image.load("Assets/Images/purple_indicator.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),
     'RI': pygame.transform.scale(pygame.image.load("Assets/Images/red_indicator.png"), (BLOCK_LENGTH, BLOCK_LENGTH)),

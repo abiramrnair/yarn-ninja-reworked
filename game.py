@@ -68,6 +68,7 @@ class Game:
             # check if the timeout duration has elapsed and reset the level
             if resetLevel:
                 pygame.time.delay(4000)
+                self.cleanUpRender()
                 self.main(0)
             if player.win:
                 level_completed_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 30).render(
@@ -85,7 +86,7 @@ class Game:
                 resetLevel = True
             else:
                 self.SURFACE.blit(level_label, (10, 10))
-                self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 155, 10))
+                self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 160, 10))
                 self.SURFACE.blit(colon_label, (self.SCREEN_WIDTH - 50, 4))
 
             pygame.display.update()

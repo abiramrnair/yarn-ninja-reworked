@@ -40,7 +40,7 @@ while True:
                 print('Routing to Level 1.')
                 from game import Game
                 game = Game()
-                game.main(0)
+                game.main(2)
                 # if x == "end":
                 #     pygame.quit()
                 #     quit()
@@ -53,7 +53,6 @@ while True:
     screen.blit(text, text_rect)
     pygame.draw.rect(screen, button_color, button_rect)
     screen.blit(button_text, button_text_rect)
-
 
 
 
