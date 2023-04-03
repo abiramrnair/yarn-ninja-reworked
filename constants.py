@@ -16,7 +16,7 @@ BLOCK_LENGTH = 50
 CHAR_WALL = "-"
 CHAR_PLAYER = "P"
 CHAR_EMPTY = "*"
-RUMBLE_DIST = 6
+RUMBLE_DIST = 3
 LEFT = "left"
 RIGHT = "right"
 UP = "up"
@@ -29,6 +29,7 @@ PLAYER_HITBOX_X = 50
 PLAYER_HITBOX_Y = 50
 PLAYER_DESTROY = "destroy"
 PLAYER_TELEPORT = "teleport"
+PLAYER_WIN = "win"
 
 # Coords functions
 def getTranslatedCoords(startingCoords, coord):
