@@ -17,10 +17,11 @@ The project requires installation of pygame which can be downloaded by:
   or
 - python3 -m pip install -U pygame --user (Documentation: https://www.pygame.org/wiki/GettingStarted)
 
-**Once the prerequisites are met, the user can then go ahead an run the Main.py file from the project. This will open a window
-and the user can begin playing the game.**
+**Once the prerequisites are met, the user can then go ahead and run the Main.py file from the project. This will open a window and the user can begin playing the game.**
 
 **You may also run the Main.exe file to begin playing the game.**
+
+**The entry point in case Main.exe does not work is Main.py if using an IDE.**
 
 ---
 
