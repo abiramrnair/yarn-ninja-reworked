@@ -151,3 +151,4 @@ class Game:
         self.wallCollectionSprites.empty()
         self.interactableCollectionSprites.empty()
         self.walls = []
+        self.enemyAnimationSprites.empty()
