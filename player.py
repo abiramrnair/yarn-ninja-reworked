@@ -87,7 +87,7 @@ class Player(pygame.sprite.Sprite):
             self.moveSingleAxis(0, dy)
 
     def moveSingleAxis(self, dx, dy):
-        self.rect.x += dx 
+        self.rect.x += dx
         self.rect.y += dy
 
         for wall in self.walls:
@@ -96,11 +96,11 @@ class Player(pygame.sprite.Sprite):
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
                 self.isMoving = False
-                if dx > 0: 
+                if dx > 0:
                     self.rect.right = wall.rect.left
                     self.current_stance = 0
                     self.collided = RIGHT
-                if dx < 0: 
+                if dx < 0:
                     self.rect.left = wall.rect.right
                     self.current_stance = 2
                     self.collided = LEFT
@@ -109,7 +109,7 @@ class Player(pygame.sprite.Sprite):
                     self.current_stance = 4
                     self.collided = UP
 
-                if dy > 0: 
+                if dy > 0:
                     self.rect.bottom = wall.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
@@ -132,11 +132,11 @@ class Player(pygame.sprite.Sprite):
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
                 self.isMoving = False
-                if dx > 0: 
+                if dx > 0:
                     self.rect.right = sprite.rect.left
                     self.current_stance = 0
                     self.collided = RIGHT
-                if dx < 0: 
+                if dx < 0:
                     self.rect.left = sprite.rect.right
                     self.current_stance = 2
                     self.collided = LEFT
@@ -144,13 +144,15 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = sprite.rect.bottom
                     self.current_stance = 4
                     self.collided = UP
-                if dy > 0: 
+                if dy > 0:
                     self.rect.bottom = sprite.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
             elif self.rect.colliderect(sprite.rect):
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
+
+
 
     def handlePlayerKeys(self):
         key_pressed = pygame.key.get_pressed()

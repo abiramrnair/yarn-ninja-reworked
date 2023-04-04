@@ -36,7 +36,7 @@ class Game:
 
         # font
         pygame.font.init()
-        font =  pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 20)
+        font = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 20)
         
         # Grid setup
         self.parseGrid(currLevel, player, self.interactableCollectionSprites)
@@ -72,7 +72,7 @@ class Game:
 
             # check if the timeout duration has elapsed and reset the level
             if resetLevel:
-                pygame.time.delay(4000)
+                pygame.time.delay(2500)
                 self.cleanUpRender()
                 self.main(0)
             if player.win:
@@ -80,7 +80,7 @@ class Game:
                    str(currLevel["name"]) + " Completed", True, COLOR_WHITE)
                 self.SURFACE.blit(level_completed_label, (self.SCREEN_WIDTH / 2 - 240, 30))
                 pygame.display.flip()
-                pygame.time.delay(4000)
+                pygame.time.delay(2500)
                 self.cleanUpRender()
                 if level + 1 < len(GAME_LEVELS):
                     self.main(level + 1)
@@ -94,8 +94,8 @@ class Game:
                 resetLevel = True
             else:
                 self.SURFACE.blit(level_label, (10, 10))
-                self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 160, 10))
-                self.SURFACE.blit(colon_label, (self.SCREEN_WIDTH - 50, 4))
+                self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 165, 10))
+                self.SURFACE.blit(colon_label, (self.SCREEN_WIDTH - 60, 4))
 
             pygame.display.update()
             self.clock.tick(GAME_TICK)
