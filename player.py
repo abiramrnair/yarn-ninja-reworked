@@ -69,12 +69,16 @@ class Player(pygame.sprite.Sprite):
         self.last_collided_time = pygame.time.get_ticks()
         self.last_collision_sound_time = pygame.time.get_ticks()
         self.interactableCollection = None
+        self.enemyCollection = None
         self.interactableCoords = None
         self.available_moves = None
         self.win = None
         self.move_check = None
         self.walls = None
     def update(self):
+        for sprite in self.enemyCollection:
+            if self.rect.colliderect(sprite.rect):
+                self.available_moves = 0
         self.currentSprite += PLAYER_ANIM_INC
         if self.currentSprite >= len(player_stances[self.current_stance]):
             self.currentSprite = 0
@@ -92,7 +96,6 @@ class Player(pygame.sprite.Sprite):
 
         for wall in self.walls:
             if self.rect.colliderect(wall.rect):
-                # self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
                 self.isMoving = False
@@ -108,20 +111,16 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = wall.rect.bottom
                     self.current_stance = 4
                     self.collided = UP
-
                 if dy > 0:
                     self.rect.bottom = wall.rect.top
                     self.current_stance = 6
                     self.collided = DOWN
-
                 # Determine if the user is not pressing arrow keys, enable move_check
                 keys = pygame.key.get_pressed()
                 if not (keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP] or keys[pygame.K_DOWN]):
                     self.move_check = True
-
             else:
                 self.move_check = False
-
             if self.move_check:
                 self.available_moves -= 1
 
@@ -151,9 +150,6 @@ class Player(pygame.sprite.Sprite):
             elif self.rect.colliderect(sprite.rect):
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
-
-
-
     def handlePlayerKeys(self):
         key_pressed = pygame.key.get_pressed()
         if (key_pressed[pygame.K_RIGHT] or self.isMoving == RIGHT) and self.isMoving != LEFT and self.isMoving != UP and self.isMoving != DOWN:

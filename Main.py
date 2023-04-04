@@ -44,12 +44,6 @@ def home():
                     from game import Game
                     game = Game()
                     game.main(0)
-                    # if x == "end":
-                    #     pygame.quit()
-                    #     quit()
-                # if quit_button_rect.collidepoint(mouse_pos):
-                #         pygame.quit()
-                #         quit()
 
         # Blit background image, text, and button onto display surface
         screen.blit(background_image, (0, 0))

@@ -45,6 +45,7 @@ class Game:
         player.walls = self.walls
         for sprite in self.enemyAnimationSprites:
             sprite.walls = self.walls
+        player.enemyCollection = self.enemyAnimationSprites
         
         # Game loop
         while running:
