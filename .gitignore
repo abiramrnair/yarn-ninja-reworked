@@ -1,3 +1,6 @@
-# constants cache
 __pycache__
 .DS_STORE
+dist
+build
+Main
+Main.spec
