@@ -43,7 +43,7 @@ def home():
                     print('Routing to Level 1.')
                     from game import Game
                     game = Game()
-                    game.main(0)
+                    game.main(4)
                     # if x == "end":
                     #     pygame.quit()
                     #     quit()
