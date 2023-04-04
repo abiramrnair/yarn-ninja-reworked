@@ -18,8 +18,7 @@ GAME_LEVELS = [
             'interactive_coords': {
               (1, 1): {'impact': None, 'action': 'win'}
             }
-        },
-        {
+        },{
              'name': "LEVEL 2",
              'available_moves': 8,
              'surface_grid': [
@@ -41,8 +40,7 @@ GAME_LEVELS = [
                 (3, 6): {'impact': (2, 1), 'action': 'teleport'},
                 (3, 3): {'impact': None, 'action': 'win'}
               }
-        },
-        {
+        },{
         'name': "LEVEL 3",
         'available_moves': 10,
         'surface_grid': [
@@ -66,8 +64,7 @@ GAME_LEVELS = [
                 (3, 5): {'impact': (1, 7), 'action': 'destroy'},
                 (1, 1): {'impact': None, 'action': 'win'}
             }
-        },
-        {
+        },{
             'name':"LEVEL 4",
             'available_moves': 16,
             'surface_grid': [
@@ -84,7 +81,7 @@ GAME_LEVELS = [
             ],
             'obstacle_grid': [('PI', (6, 6))],
             'interactive_coords': {
-                (8, 8): {'impact': (6, 6), 'action': 'destroy'}, # destroy the gate at 6,6
+                (8, 8): {'impact': (6, 6), 'action': 'destroy'},
                 (5,1): {'impact': (4, 4), 'action': 'teleport'},
                 (8,6): {'impact': (1, 5), 'action': 'teleport'},
                 (3, 4): {'impact': None, 'action': 'win'}
@@ -104,11 +101,10 @@ GAME_LEVELS = [
              ["-","P","*","-","-","-","*","*","PBRL","-"],
              ["-","-","-","-","-","-","-","-","-","-"],
             ],
-            'obstacle_grid': [('PI', (6, 2))],
+            'obstacle_grid': [('PI', (6, 2)), ('RI', (6, 7))],
             'interactive_coords': {
                 (8, 8): {'impact': (2, 6), 'action': 'destroy'},
                 (3,1): {'impact': (7, 6), 'action': 'destroy'},
-                # (8,6): {'impact': (1, 5), 'action': 'teleport'},
                 (7, 1): {'impact': None, 'action': 'win'}
             }
         },{
@@ -120,13 +116,13 @@ GAME_LEVELS = [
                 ["-", "*", "*", "*", "G", "G", "T", "*", "*", "-"],
                 ["-", "*", "*", "*", "-", "-", "-", "*", "*", "-"],
                 ["-","*" , "*", "-", "-", "-", "*", "SLV", "*", "-"],
-                ["-", "*", "*", "*", "SLH", "-", "*", "*", "PBRL", "-"],
+                ["-", "*", "*", "*", "SLH", "-", "*", "*", "RBRL", "-"],
                 ["-", "PP", "*", "PBRL", "-", "-", "-", "-", "-", "-"],
                 ["-", "-", "-", "-", "*", "*", "*", "*", "-", "-"],
                 ["-", "P", "*", "*", "*", "-", "PP", "*", "PP", "-"],
                 ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
             ],
-            'obstacle_grid': [],
+            'obstacle_grid': [('PI', (2, 4)), ('RI', (2, 5))],
             'interactive_coords': {
                 (3,6): {'impact': (4, 2), 'action': 'destroy'},
                 (8, 5): {'impact': (5, 2), 'action': 'destroy'},
