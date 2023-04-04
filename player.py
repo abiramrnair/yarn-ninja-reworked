@@ -60,6 +60,7 @@ class Player(pygame.sprite.Sprite):
         self.surface = surface
         self.color = color
         self.isMoving = False
+        self.lastMoving = None
         self.collided = False
         self.current_stance = 0
         self.currentSprite = 0
@@ -98,6 +99,9 @@ class Player(pygame.sprite.Sprite):
             if self.rect.colliderect(wall.rect):
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
+                if self.isMoving != self.lastMoving:
+                    self.available_moves -= 1
+                self.lastMoving = self.isMoving
                 self.isMoving = False
                 if dx > 0:
                     self.rect.right = wall.rect.left
@@ -121,8 +125,6 @@ class Player(pygame.sprite.Sprite):
                     self.move_check = True
             else:
                 self.move_check = False
-            if self.move_check:
-                self.available_moves -= 1
 
         for sprite in self.interactableCollection:
             if sprite.is_solid and self.rect.colliderect(sprite.rect):
@@ -130,6 +132,9 @@ class Player(pygame.sprite.Sprite):
                 self.playCollisionSound()
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
+                if self.isMoving != self.lastMoving:
+                    self.available_moves -= 1
+                self.lastMoving = self.isMoving
                 self.isMoving = False
                 if dx > 0:
                     self.rect.right = sprite.rect.left

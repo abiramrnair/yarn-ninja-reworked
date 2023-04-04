@@ -20,7 +20,7 @@ GAME_LEVELS = [
             }
         },{
              'name': "LEVEL 2",
-             'available_moves': 8,
+             'available_moves': 10,
              'surface_grid': [
              ["-","-","-","-","-","-","-","-","-","-"],
              ["-","GP","*","*","G","*","*","*","*","-"],
@@ -42,7 +42,7 @@ GAME_LEVELS = [
               }
         },{
         'name': "LEVEL 3",
-        'available_moves': 10,
+        'available_moves': 11,
         'surface_grid': [
             ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
             ["-", "T", "*", "*", "*", "*", "-", "-", "GP", "-"],
@@ -66,7 +66,7 @@ GAME_LEVELS = [
             }
         },{
             'name':"LEVEL 4",
-            'available_moves': 16,
+            'available_moves': 20,
             'surface_grid': [
              ["-","-","-","-","-","-","-","-","-","-"],
              ["-","*","P","-","-","PP","*","*","-","-"],
@@ -88,7 +88,7 @@ GAME_LEVELS = [
             }
         },{
             'name':"LEVEL 5",
-            'available_moves': 13,
+            'available_moves': 20,
             'surface_grid': [
              ["-","-","-","-","-","-","-","-","-","-"],
              ["-","-","*","RBRL","-","-","-","T","*","-"],
