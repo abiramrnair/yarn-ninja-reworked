@@ -94,8 +94,8 @@ class Game:
                 resetLevel = True
             else:
                 self.SURFACE.blit(level_label, (10, 10))
-                self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 165, 10))
-                self.SURFACE.blit(colon_label, (self.SCREEN_WIDTH - 60, 4))
+                self.SURFACE.blit(moves_label, (self.SCREEN_WIDTH - 175, 10))
+                self.SURFACE.blit(colon_label, (self.SCREEN_WIDTH - 67, 4))
 
             pygame.display.update()
             self.clock.tick(GAME_TICK)
