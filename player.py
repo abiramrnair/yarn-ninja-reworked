@@ -127,10 +127,8 @@ class Player(pygame.sprite.Sprite):
 
         for sprite in self.interactableCollection:
             if sprite.is_solid and self.rect.colliderect(sprite.rect):
-                # self.available_moves -= 1
                 self.last_collided_time = pygame.time.get_ticks()
                 self.playCollisionSound()
-                # self.collision = True
                 sprite_x, sprite_y = getOriginalCoords(GRID_START, (sprite.rect.x, sprite.rect.y))
                 self.performPlayerAction(sprite_x, sprite_y)
                 self.isMoving = False

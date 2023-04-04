@@ -2,9 +2,9 @@ from constants import *
 from levels import *
 from wall import *
 from interactable import *
+from enemy import *
 from player import *
 import pygame
-import time
 
 class Game:
     def __init__(self):
@@ -16,6 +16,7 @@ class Game:
         self.walls = []
         # Sprite collection
         self.playerAnimationSprites = pygame.sprite.Group()
+        self.enemyAnimationSprites = pygame.sprite.Group()
         self.wallCollectionSprites = pygame.sprite.Group()
         self.interactableCollectionSprites = pygame.sprite.Group()
         pygame.display.set_caption(GAME_NAME)
@@ -42,6 +43,8 @@ class Game:
         for wall in self.walls:
             self.wallCollectionSprites.add(wall)
         player.walls = self.walls
+        for sprite in self.enemyAnimationSprites:
+            sprite.walls = self.walls
         
         # Game loop
         while running:
@@ -58,6 +61,8 @@ class Game:
             player.handlePlayerKeys()
 
             self.drawWalls(player)
+            self.enemyAnimationSprites.draw(self.SURFACE)
+            self.enemyAnimationSprites.update()
             self.interactableCollectionSprites.draw(self.SURFACE)
             self.interactableCollectionSprites.update()
             player.collided = False
@@ -82,8 +87,6 @@ class Game:
                 else:
                     import Main
                     Main.home()
-
-
             if player.available_moves <= 0:
                 level_label = pygame.font.Font('./Assets/Fonts/8-BIT WONDER.ttf', 40).render("Game Over", True,
                                                                                              COLOR_WHITE)
@@ -111,7 +114,6 @@ class Game:
             for j in range(len(grid_layer_two[0])):
                 char = grid_layer_two[j][i]
                 coord_x, coord_y = getTranslatedCoords(GRID_START, (i, j))
-
                 if char == CHAR_WALL:
                     wall = Wall(coord_x, coord_y)
                     self.walls.append(wall)
@@ -120,6 +122,8 @@ class Game:
                         player.rect.x = coord_x
                         player.rect.y = coord_y
                         player.unset = False
+                elif char == CHAR_SLIME_HORIZONTAL or char == CHAR_SLIME_VERTICAL:
+                    self.enemyAnimationSprites.add(Enemy(coord_x, coord_y, char))
                 elif char != CHAR_EMPTY:
                     interactableCollection.add(Interactable(coord_x, coord_y, char))
     def drawWalls(self, player):

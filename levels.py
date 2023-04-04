@@ -59,18 +59,15 @@ GAME_LEVELS = [
         ],
 
         'obstacle_grid': [('RI', (7, 1))],
-
         'interactive_coords':
             {
-
                 (8, 7): {'impact': (8, 2), 'action': 'teleport'},
                 (8, 1): {'impact': (7, 7), 'action': 'teleport'},
                 (3, 5): {'impact': (1, 7), 'action': 'destroy'},
                 (1, 1): {'impact': None, 'action': 'win'}
-
             }
         },
-{
+        {
             'name':"LEVEL 4",
             'available_moves': 13,
             'surface_grid': [
@@ -85,13 +82,12 @@ GAME_LEVELS = [
              ["-","*","*","-","-","-","*","*","PBRL","-"],
              ["-","-","-","-","-","-","-","-","-","-"],
             ],
-            'obstacle_grid': [],
+            'obstacle_grid': [('PI', (6, 6))],
             'interactive_coords': {
                 (8, 8): {'impact': (6, 6), 'action': 'destroy'}, # destroy the gate at 6,6
-                (5,1): {'impact': (3, 1), 'action': 'teleport'},
+                (5,1): {'impact': (4, 4), 'action': 'teleport'},
                 (8,6): {'impact': (1, 5), 'action': 'teleport'},
                 (3, 4): {'impact': None, 'action': 'win'}
-
             }
-        }
+        },
 ]

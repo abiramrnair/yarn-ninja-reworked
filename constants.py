@@ -16,7 +16,9 @@ BLOCK_LENGTH = 50
 CHAR_WALL = "-"
 CHAR_PLAYER = "P"
 CHAR_EMPTY = "*"
-RUMBLE_DIST = 3
+CHAR_SLIME_HORIZONTAL = "SLH"
+CHAR_SLIME_VERTICAL = "SLV"
+RUMBLE_DIST = 5
 LEFT = "left"
 RIGHT = "right"
 UP = "up"
@@ -30,6 +32,10 @@ PLAYER_HITBOX_Y = 50
 PLAYER_DESTROY = "destroy"
 PLAYER_TELEPORT = "teleport"
 PLAYER_WIN = "win"
+
+# Enemy
+ENEMY_MOVE_SPEED = 3
+ENEMY_ANIM_INC = 0.2
 
 # Coords functions
 def getTranslatedCoords(startingCoords, coord):
